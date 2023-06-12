@@ -14,7 +14,7 @@ class Node {
         std::set<Edge*> adjacentEdges;
         std::set<int> superNode;
     public:
-        Node(int identifier, std::set<Edge*> lists = {});
+        Node(int, std::set<Edge*> = {});
         ~Node();
 
         int getId();
@@ -23,6 +23,7 @@ class Node {
         std::set<Edge*> getAdjacents();
         std::set<int> getSuperNode();
 
+        void updateDegree();
         void addAdjacent(Edge*);
         void removeAdjacent(Edge*);
         void addSuperNode(Node*);

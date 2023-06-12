@@ -8,6 +8,16 @@ Edge::~Edge()
 {
 }
 
+//========= GETTERS
+Node* Edge::getFirstNode() const {
+    return node1;
+}
+Node* Edge::getSecondNode() const {
+    return node2;
+}
+double Edge::getWeight() const {
+    return weight;
+}
 Node* Edge::getAdjacent(Node* node) {
     if (node == node1) {
         return node2;

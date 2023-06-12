@@ -27,15 +27,18 @@ std::set<int> Node::getSuperNode() {
 }
 
 //========= SETTERS
+void Node::updateDegree() {
+    degree = adjacentEdges.size();
+}
 void Node::addAdjacent(Edge* edge) {
     adjacentEdges.insert(edge);
-    degree = adjacentEdges.size();
+    updateDegree();
 }
 void Node::removeAdjacent(Edge* edge) {
     auto itr = adjacentEdges.find(edge);
     adjacentEdges.erase(itr);
-    degree = adjacentEdges.size();
+    updateDegree();
 }
 void Node::addSuperNode(Node* node) {
-    // superNode.merge(node->getSuperNode());
+    superNode.merge(node->getSuperNode());
 }

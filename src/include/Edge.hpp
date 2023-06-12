@@ -11,9 +11,12 @@ class Edge {
         Node* node2;
         double weight;
     public:
-        Edge(Node*, Node*, double);
+        Edge(Node*, Node*, double = 1);
         ~Edge();
 
+        Node* getFirstNode() const;
+        Node* getSecondNode() const;
+        double getWeight() const;
         Node* getAdjacent(Node*);
 };
 
