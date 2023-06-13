@@ -18,23 +18,30 @@ std::set<Edge, EdgeComparator> Graph::getEdges() {
 std::set<int> Graph::getCommunities() {
     return communities;
 }
-bool Graph::edgeExists(Node* node1, Node* node2) {
-    Edge edgeTest = Edge(node1, node2, 0);
-    auto itr = edges.lower_bound(edgeTest);
-    Edge edgeSearch = *itr;
-
-    if (edgeTest.getFirstNode() == edgeSearch.getFirstNode()
-        && edgeTest.getSecondNode() == edgeSearch.getSecondNode()) {
-        return true;
-    }
+Edge* Graph::getEdge(Node* node1, Node* node2) {
+    Edge boundEdge1 = Edge(node1, node2, 0);
+    auto itr = edges.lower_bound(boundEdge1);
+    Edge edgeSearch1 = *itr;
 
     // if the edge was stored in inverse order of nodes
-    edgeTest = Edge(node2, node1, 0);
-    itr = edges.lower_bound(edgeTest);
-    edgeSearch = *itr;
+    Edge boundEdge2 = Edge(node2, node1, 0);
+    itr = edges.lower_bound(boundEdge2);
+    Edge edgeSearch2 = *itr;
 
-    return edgeTest.getFirstNode() == edgeSearch.getFirstNode()
-        && edgeTest.getSecondNode() == edgeSearch.getSecondNode();
+    Edge edge;
+    if (boundEdge1.getFirstNode() == edgeSearch1.getFirstNode()
+        && boundEdge1.getSecondNode() == edgeSearch1.getSecondNode()) {
+        edge = edgeSearch1;
+    }
+    if (boundEdge2.getFirstNode() == edgeSearch2.getFirstNode()
+        && boundEdge2.getSecondNode() == edgeSearch2.getSecondNode()) {
+        edge = edgeSearch2;
+    }
+    return &edge;
+}
+bool Graph::edgeExists(Node* node1, Node* node2) {
+    Edge* edge = getEdge(node1, node2);
+    return edge != nullptr;
 }
 
 //========= SETTERS
@@ -66,4 +73,10 @@ void Graph::removeEdges(Node* node) {
         auto cur_node = *it;
         cur_node->updateDegree();
     }
+}
+void Graph::updateWeight(Node* vi, Node* vj, Node* vk) {
+    Edge* edgeUpdate = getEdge(vj, vk);
+    double w_edge1 = getEdge(vi, vj)->getWeight();
+    double w_edge2 = getEdge(vi, vk)->getWeight();
+    edgeUpdate->updateWeight(w_edge1, w_edge2);
 }

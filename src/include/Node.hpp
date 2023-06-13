@@ -4,6 +4,7 @@
 #include "Edge.hpp"
 
 #include <set>
+#include <iostream>
 
 class Node {
     private:

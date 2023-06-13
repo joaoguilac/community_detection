@@ -1,4 +1,7 @@
+#include "Graph.hpp"
+
 int main(int argc, char const *argv[]) {
-    /* code */
+    Graph G;
+    Graph G_compressed = G.compression();
     return 0;
 }

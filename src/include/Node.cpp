@@ -41,4 +41,7 @@ void Node::removeAdjacent(Edge* edge) {
 }
 void Node::addSuperNode(Node* node) {
     superNode.merge(node->getSuperNode());
+    // TODO: verificar se é removido todos seus adjacentes do 'node' (linha 8)
+    std::cout << node->getDegree() << std::endl;
+    node->updateDegree();
 }

@@ -29,3 +29,8 @@ Node* Edge::getAdjacent(Node* node) {
         // TODO: exceção
     }
 }
+
+//========= SETTERS
+void Edge::updateWeight(double w_edge1, double w_edge2) {
+    weight += 1/2 * w_edge1 * w_edge2;
+}

@@ -37,11 +37,13 @@ class Graph {
         std::set<Node> getNodes();
         std::set<Edge, EdgeComparator> getEdges();
         std::set<int> getCommunities();
+        Edge* getEdge(Node*, Node*);
         bool edgeExists(Node*, Node*);
 
         void removeNode(Node*);
         void removeEdges(Node*);
         void addEdge(Node*, Node*);
+        void updateWeight(Node*, Node*, Node*);
 
         Graph compression();
 };
