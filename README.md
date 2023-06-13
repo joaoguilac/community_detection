@@ -10,5 +10,5 @@ Alunos:
 ## Compilação
 
 ```bash
-g++ -Wall -std=c++17 -g src/main.cpp -I src/include src/algorithms -o build/run
+g++ -Wall -std=c++17 -g src/main.cpp -I src/include -o build/run
 ```
