@@ -1,13 +1,10 @@
 #include "Node.hpp"
 
-Node::Node(int identifier, std::set<Edge*> lists = {})
+Node::Node(int identifier, std::set<Edge> lists = {})
     : id{identifier}, adjacentEdges{lists},
       community{-1}, degree{lists.size()},
       superNode{{this->id}}
-{ /* empty */ }
-
-Node::~Node() {
-}
+{}
 
 //========= GETTERS
 int Node::getId() {
@@ -19,29 +16,44 @@ int Node::getDegree() {
 int Node::getCommunity() {
     return community;
 }
-std::set<Edge*> Node::getAdjacents() {
+std::set<Edge> Node::getAdjacents() {
     return adjacentEdges;
 }
 std::set<int> Node::getSuperNode() {
     return superNode;
+}
+Edge Node::getEdge(Node* adjacent) {
+    return *adjacentEdges.lower_bound({adjacent, 0});
+}
+bool Node::edgeExists(Node* adjacent) {
+    Edge edge = getEdge(adjacent);
+    return edge->first == adjacent;
 }
 
 //========= SETTERS
 void Node::updateDegree() {
     degree = adjacentEdges.size();
 }
-void Node::addAdjacent(Edge* edge) {
+void Node::addAdjacent(Edge edge) {
     adjacentEdges.insert(edge);
     updateDegree();
 }
-void Node::removeAdjacent(Edge* edge) {
-    auto itr = adjacentEdges.find(edge);
+void Node::removeAdjacent(Node* adjacent) {
+    auto itr = adjacentEdges.lower_bound({adjacent, 0});
     adjacentEdges.erase(itr);
     updateDegree();
 }
 void Node::addSuperNode(Node* node) {
     superNode.merge(node->getSuperNode());
-    // TODO: verificar se é removido todos seus adjacentes do 'node' (linha 8)
-    std::cout << node->getDegree() << std::endl;
     node->updateDegree();
+}
+void Node::removeFromAdjacents() {
+    for (auto adj = adjacentEdges.begin(); adj != adjacentEdges.end(); ++adj) {
+        adj->first->removeAdjacent(this);
+    }
+}
+void Node::updateWeight(Node* adjacent, double new_weight) {
+    auto itr = adjacentEdges.lower_bound({adjacent, 0});
+    adjacentsEdges.erase(itr);
+    adjacentsEdges.insert({adjacent, new_weight});
 }

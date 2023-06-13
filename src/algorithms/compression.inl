@@ -14,20 +14,20 @@ Graph Graph::compression() {
     }
 
     // 4. Initialize the compressed graph
-    Graph graph_compressed = Graph(this->nodes, this->edges, this->communities);
+    // TODO: verificar se é cópia profunda ou rasa
+    Graph graph_compressed = Graph(this->nodes, this->communities);
 
     // 5 - 24 (Repeat until)
     while (!D1.empty() || !D2.empty()) {
         // 6 - 11 (for D1)
         for (auto node = D1.begin(); node != D1.end(); ++node) {
-            auto vi = *node;
-            auto vj = (*(vi->getAdjacents().begin()))->getAdjacent(vi);
-            // 7. remove adjacents edges of vi from compressed graph
-            graph_compressed.removeEdges(vi);
-            // 7. remove vi from compressed graph
-            graph_compressed.removeNode(vi);
+            Node* vi = *node;
+            Node* vj = vi->getAdjacents().begin()->first;
             // 8. update supernodes
             vj->addSuperNode(vi);
+            // 7. remove adjacents edges of vi from compressed graph
+            // 7. remove vi from compressed graph
+            graph_compressed.removeNode(vi);
             // 9. add vj to D1 or D2
             if (vj->getDegree() == 1) {
                 D1.insert(vj);
@@ -43,28 +43,26 @@ Graph Graph::compression() {
             auto vi = *node;
             // TODO: 13 - 21. vi is a bridge node?
             if (false) {
-                auto vj = (*(vi->getAdjacents().begin()))->getAdjacent(vi);
-                auto vk = (*(vi->getAdjacents().begin()++))->getAdjacent(vi);
-                // 14. remove adjacents edges of vi from compressed graph
-                graph_compressed.removeEdges(vi);
-                // 14. remove vi from compressed graph
-                graph_compressed.removeNode(vi);
-                // 14. (vj, vk) exist in graph?
-                if (!graph_compressed.edgeExists(vj, vk)) {
-                    // 14. add edge (vj, vk)
-                    graph_compressed.addEdge(vj, vk);
-                }
-                // 15 - 17. automatically done with Graph::addEdge() and Graph::removeEdges
-                // 18. update weight (vj, vk)
-                graph_compressed.updateWeight(vi, vj, vk);
+                auto vj = vi->getAdjacents().begin()->first;
+                auto vk = (vi->getAdjacents().begin()++)->first;
                 // 19. update supernodes
-                // TODO: verificar se o grau de vi já é zerado
                 if (vj->getDegree() >= vk->getDegree()) {
                     vj->addSuperNode(vi);
                 }
                 else {
                     vk->addSuperNode(vi);
                 }
+                // 14. remove adjacents edges of vi from compressed graph
+                // 14. remove vi from compressed graph
+                graph_compressed.removeNode(vi);
+                // 14. (vj, vk) exist in graph?
+                if (!graph_compressed.edgeExists(vj, vk)) {
+                    // 14. add edge (vj, vk)
+                    graph_compressed.addEdge(vj, vk, 0);
+                }
+                // 15 - 17. automatically done with Graph::addEdge() and Graph::removeEdges
+                // 18. update weight (vj, vk)
+                graph_compressed.updateWeight(vi, vj, vk);
                 // 20. add vj to D1 or D2
                 if (vj->getDegree() == 1) {
                     D1.insert(vj);
