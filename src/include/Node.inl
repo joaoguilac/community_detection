@@ -1,8 +1,8 @@
 #include "Node.hpp"
 
-Node::Node(int identifier, std::set<Edge> lists = {})
+Node::Node(int identifier, std::map<Node*, double> lists)
     : id{identifier}, adjacentEdges{lists},
-      community{-1}, degree{lists.size()},
+      community{-1}, degree{(int) lists.size()},
       superNode{{this->id}}
 {}
 
@@ -16,31 +16,32 @@ int Node::getDegree() {
 int Node::getCommunity() {
     return community;
 }
-std::set<Edge> Node::getAdjacents() {
+std::map<Node*, double> Node::getAdjacents() {
     return adjacentEdges;
 }
 std::set<int> Node::getSuperNode() {
     return superNode;
 }
-Edge Node::getEdge(Node* adjacent) {
-    return *adjacentEdges.lower_bound({adjacent, 0});
-}
 bool Node::edgeExists(Node* adjacent) {
-    Edge edge = getEdge(adjacent);
-    return edge->first == adjacent;
+    return adjacentEdges.find(adjacent) != adjacentEdges.end();
+}
+std::pair<Node*, double> Node::getEdge(Node* adjacent) {
+    if (edgeExists(adjacent)) {
+        return std::pair<Node*, double>({adjacent, adjacentEdges[adjacent]});
+    }
+    return std::pair<Node*, double>({adjacent, -1});
 }
 
 //========= SETTERS
 void Node::updateDegree() {
     degree = adjacentEdges.size();
 }
-void Node::addAdjacent(Edge edge) {
+void Node::addAdjacent(std::pair<Node*, double> edge) {
     adjacentEdges.insert(edge);
     updateDegree();
 }
 void Node::removeAdjacent(Node* adjacent) {
-    auto itr = adjacentEdges.lower_bound({adjacent, 0});
-    adjacentEdges.erase(itr);
+    adjacentEdges.erase(adjacent);
     updateDegree();
 }
 void Node::addSuperNode(Node* node) {
@@ -53,7 +54,6 @@ void Node::removeFromAdjacents() {
     }
 }
 void Node::updateWeight(Node* adjacent, double new_weight) {
-    auto itr = adjacentEdges.lower_bound({adjacent, 0});
-    adjacentsEdges.erase(itr);
-    adjacentsEdges.insert({adjacent, new_weight});
+    adjacentEdges.erase(adjacent);
+    adjacentEdges.insert({adjacent, new_weight});
 }

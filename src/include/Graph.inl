@@ -2,12 +2,12 @@
 
 typedef std::pair<Node*, double> Edge;
 
-Graph::Graph(std::set<Node> n_ = {}, std::set<int> c_ = {})
+Graph::Graph(std::set<Node, cmp> n_, std::set<int> c_)
     : nodes{n_}, communities{c_}
 {}
 
 //========= GETTERS
-std::set<Node> Graph::getNodes() {
+std::set<Node, cmp> Graph::getNodes() {
     return nodes;
 }
 std::set<int> Graph::getCommunities() {
@@ -18,9 +18,9 @@ bool Graph::edgeExists(Node* node1, Node* node2) {
 }
 
 //========= SETTERS
-void Graph::removeNode(Node* node) {
-    node->removeFromAdjacents();
-    auto itr = nodes.find(*node);
+void Graph::removeNode(Node* n_) {
+    n_->removeFromAdjacents();
+    auto itr = nodes.find(*n_);
     nodes.erase(itr);
 }
 void Graph::addEdge(Node* node1, Node* node2, double weight) {

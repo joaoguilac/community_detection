@@ -1,4 +1,4 @@
-#include "Graph.hpp"
+#include "../include/Graph.hpp"
 
 Graph Graph::compression() {
     // 3. Initialize sets of vertices with a degree of 1 and 2
