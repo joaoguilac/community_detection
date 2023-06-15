@@ -14,7 +14,7 @@ class Node {
         int degree;
 
         // TODO: change to std::map
-        std::map<Node*, double> adjacentEdges;
+        std::map<Node*, double> adjacentNodes;
         // TODO: use DSU
         std::set<int> superNode;
     public:

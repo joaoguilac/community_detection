@@ -13,6 +13,19 @@ std::set<Node, cmp> Graph::getNodes() {
 std::set<int> Graph::getCommunities() {
     return communities;
 }
+Node* Graph::getNodeReference(int id) {
+    auto itr_node = std::find_if(nodes.begin(),
+                                 nodes.end(),
+                                 find_by_id(id));
+    Node node = *itr_node;
+    return &node;
+}
+bool Graph::nodeExists(int id) {
+    auto itr_node = std::find_if(nodes.begin(),
+                                 nodes.end(),
+                                 find_by_id(id));
+    return itr_node != nodes.end();
+}
 bool Graph::edgeExists(Node* node1, Node* node2) {
     return node1->edgeExists(node2);
 }

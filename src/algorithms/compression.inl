@@ -4,9 +4,9 @@ Graph Graph::compression() {
     // 3. Initialize sets of vertices with a degree of 1 and 2
     std::set<Node*> D1, D2;
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
-        auto node = *it;
+        Node node = *it;
         if (node.getDegree() == 1) {
-            D1.insert(&node);
+            D1.insert(&node); // TODO: ele está pegando a referência correta?
         }
         else if (node.getDegree() == 2) {
             D2.insert(&node);
@@ -18,7 +18,7 @@ Graph Graph::compression() {
     Graph graph_compressed = Graph(this->nodes, this->communities);
 
     // 5 - 24 (Repeat until)
-    while (!D1.empty() || !D2.empty()) {
+    while (not D1.empty() || not D2.empty()) {
         // 6 - 11 (for D1)
         for (auto node = D1.begin(); node != D1.end(); ++node) {
             Node* vi = *node;
@@ -56,7 +56,7 @@ Graph Graph::compression() {
                 // 14. remove vi from compressed graph
                 graph_compressed.removeNode(vi);
                 // 14. (vj, vk) exist in graph?
-                if (!graph_compressed.edgeExists(vj, vk)) {
+                if (not graph_compressed.edgeExists(vj, vk)) {
                     // 14. add edge (vj, vk)
                     graph_compressed.addEdge(vj, vk, 0);
                 }

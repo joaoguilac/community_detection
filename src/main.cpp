@@ -1,8 +1,12 @@
 #include "include/Graph.hpp"
 
+#include "executor.cpp"
+
 int main(int argc, char const *argv[]) {
-    Graph G;
-    Graph G_compressed = G.compression();
+    Graph graph;
+    readFile(argv[1], &graph);
+
+    Graph graph_compressed = graph.compression();
 
     return 0;
 }
