@@ -4,12 +4,12 @@ Graph Graph::compression() {
     // 3. Initialize sets of vertices with a degree of 1 and 2
     std::set<Node*> D1, D2;
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
-        Node node = *it;
-        if (node.getDegree() == 1) {
-            D1.insert(&node); // TODO: ele está pegando a referência correta?
+        Node* node = *it;
+        if (node->getDegree() == 1) {
+            D1.insert(node);
         }
-        else if (node.getDegree() == 2) {
-            D2.insert(&node);
+        else if (node->getDegree() == 2) {
+            D2.insert(node);
         }
     }
 
@@ -23,8 +23,8 @@ Graph Graph::compression() {
         for (auto node = D1.begin(); node != D1.end(); ++node) {
             Node* vi = *node;
             Node* vj = vi->getAdjacents().begin()->first;
-            // 8. update supernodes
-            vj->addSuperNode(vi);
+            // 8. update including vertices
+            vj->addIV(vi);
             // 7. remove adjacents edges of vi from compressed graph
             // 7. remove vi from compressed graph
             graph_compressed.removeNode(vi);
@@ -45,12 +45,12 @@ Graph Graph::compression() {
             if (false) {
                 auto vj = vi->getAdjacents().begin()->first;
                 auto vk = (vi->getAdjacents().begin()++)->first;
-                // 19. update supernodes
+                // 19. update including vertices
                 if (vj->getDegree() >= vk->getDegree()) {
-                    vj->addSuperNode(vi);
+                    vj->addIV(vi);
                 }
                 else {
-                    vk->addSuperNode(vi);
+                    vk->addIV(vi);
                 }
                 // 14. remove adjacents edges of vi from compressed graph
                 // 14. remove vi from compressed graph

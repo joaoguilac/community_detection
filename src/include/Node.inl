@@ -3,7 +3,7 @@
 Node::Node(int identifier, std::map<Node*, double> lists)
     : id{identifier}, adjacentNodes{lists},
       community{-1}, degree{(int) lists.size()},
-      superNode{{this->id}}
+      IV{{this->id}}
 {}
 
 //========= GETTERS
@@ -19,8 +19,8 @@ int Node::getCommunity() {
 std::map<Node*, double> Node::getAdjacents() {
     return adjacentNodes;
 }
-std::set<int> Node::getSuperNode() {
-    return superNode;
+std::set<int> Node::getIV() {
+    return IV;
 }
 bool Node::edgeExists(Node* adjacent) {
     return adjacentNodes.find(adjacent) != adjacentNodes.end();
@@ -44,8 +44,8 @@ void Node::removeAdjacent(Node* adjacent) {
     adjacentNodes.erase(adjacent);
     updateDegree();
 }
-void Node::addSuperNode(Node* node) {
-    superNode.merge(node->getSuperNode());
+void Node::addIV(Node* node) {
+    IV.merge(node->getIV());
     node->updateDegree();
 }
 void Node::removeFromAdjacents() {

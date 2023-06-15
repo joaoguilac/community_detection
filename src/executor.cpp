@@ -24,26 +24,27 @@ void processLine(std::string line, Graph* graph) {
     edge >> id_node1;
     edge >> id_node2;
 
-    // Node node1(-1), node2(-1);
-    // // Criar nós
-    // if (not graph->nodeExists(id_node1)) {
-    //     node1 = Node(id_node1);
-    // }
-    // else {
-    //     node1 = graph->getNodeReference(id_node1);
-    // }
+    // Criar nós
+    Node *node1, *node2;
+    if (not graph->nodeExists(id_node1)) {
+        node1 = new Node(id_node1);
+        graph->addNode(node1);
+    }
+    else {
+        node1 = graph->getNodeReference(id_node1);
+    }
 
-    // if (not graph->nodeExists(id_node2)) {
-    //     node2 = Node(id_node2);
-    // }
-    // else {
-    //     node1 = graph->getNodeReference(id_node1);
-    // }
+    if (not graph->nodeExists(id_node2)) {
+        node2 = new Node(id_node2);
+        graph->addNode(node2);
+    }
+    else {
+        node1 = graph->getNodeReference(id_node1);
+    }
 
-    // // Adicionar na lista de adjacência de cada nó
-    // if ()
-    // node1.addAdjacent({&node2, 1});
-    // node2.addAdjacent({&node1, 1});
+    // Adicionar na lista de adjacência de cada nó
+    node1->addAdjacent({node2, 1});
+    node2->addAdjacent({node1, 1});
 }
 
 void readFile(char const fileName[], Graph* graph) {

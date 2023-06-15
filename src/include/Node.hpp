@@ -3,7 +3,6 @@
 
 #include <map>
 #include <set>
-#include <vector>
 #include <iostream>
 #include <utility>
 
@@ -13,10 +12,8 @@ class Node {
         int community;
         int degree;
 
-        // TODO: change to std::map
         std::map<Node*, double> adjacentNodes;
-        // TODO: use DSU
-        std::set<int> superNode;
+        std::set<int> IV; //? use DSU
     public:
         Node(int, std::map<Node*, double> = {});
         ~Node() = default;
@@ -25,14 +22,14 @@ class Node {
         int getDegree();
         int getCommunity();
         std::map<Node*, double> getAdjacents();
-        std::set<int> getSuperNode();
+        std::set<int> getIV();
         bool edgeExists(Node*);
         std::pair<Node*, double> getEdge(Node*);
 
         void updateDegree();
         void addAdjacent(std::pair<Node*, double>);
         void removeAdjacent(Node*);
-        void addSuperNode(Node*);
+        void addIV(Node*);
         void removeFromAdjacents();
         void updateWeight(Node*, double);
 };
