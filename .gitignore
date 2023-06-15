@@ -26,6 +26,7 @@
 **/bin
 bin/*.o
 build/*.o
+build/**
 
 # Temporary files
 .*.swp
