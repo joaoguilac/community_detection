@@ -52,7 +52,6 @@ void Node::removeAdjacent(Node* adjacent) {
 }
 void Node::addIV(Node* node) {
     IV.merge(node->getIV());
-    node->updateDegree();
 }
 void Node::removeFromAdjacents() {
     for (auto adj = adjacentNodes.begin(); adj != adjacentNodes.end(); ++adj) {

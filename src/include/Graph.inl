@@ -24,7 +24,7 @@ Graph::Graph(Graph* g_)
             Node* relative_adj = (*it).first;
             int id = relative_adj->getId();
             double weight = (*it).second;
-            Node* adj = this->getNodeReference(id);
+            Node* adj = getNodeReference(id);
             node->addAdjacent({adj, weight});
         }
     }

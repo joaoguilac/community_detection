@@ -1,9 +1,14 @@
 #include "../include/Graph.hpp"
 
 Graph Graph::compression() {
+    // 4. Initialize the compressed graph
+    Graph graph_compressed = Graph(this);
+    graph_compressed.printGraph();
+
     // 3. Initialize sets of vertices with a degree of 1 and 2
     std::set<Node*> D1, D2;
-    for (auto it = nodes.begin(); it != nodes.end(); ++it) {
+    auto new_nodes = graph_compressed.getNodes();
+    for (auto it = new_nodes.begin(); it != new_nodes.end(); ++it) {
         Node* node = *it;
         if (node->getDegree() == 1) {
             D1.insert(node);
@@ -13,14 +18,11 @@ Graph Graph::compression() {
         }
     }
 
-    // 4. Initialize the compressed graph
-    Graph graph_compressed = Graph(this);
-    graph_compressed.printGraph();
-
     // 5 - 24 (Repeat until)
     while (not D1.empty() || not D2.empty()) {
         // 6 - 11 (for D1)
-        for (auto node = D1.begin(); node != D1.end(); ++node) {
+        auto node = D1.begin();
+        while (not D1.empty() && node != D1.end()) {
             Node* vi = *node;
             Node* vj = vi->getAdjacents().begin()->first;
             // 8. update including vertices
@@ -37,9 +39,12 @@ Graph Graph::compression() {
             }
             // 10. update D1 (remove vi)
             D1.erase(vi);
+            ++node;
         }
         // 12 - 23 (for D2)
-        for (auto node = D2.begin(); node != D2.end(); ++node) {
+        node = D2.begin();
+        // TODO: segmentation fault
+        while (not D2.empty() && node != D2.end()) {
             auto vi = *node;
             // TODO: 13 - 21. vi is a bridge node?
             if (false) {
@@ -80,6 +85,7 @@ Graph Graph::compression() {
             }
             // 22. update D2 (remove vi)
             D2.erase(vi);
+            ++node;
         }
     }
     return graph_compressed;

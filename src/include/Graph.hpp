@@ -34,7 +34,7 @@ class Graph {
 
         void printGraph();
 
-        // TODO: retirar de Graph e colocar na main
+        //? retirar de Graph e colocar na main
         void zhao();
         Graph compression();
         // Graph seed_determination();
