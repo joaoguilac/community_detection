@@ -14,8 +14,8 @@ Graph Graph::compression() {
     }
 
     // 4. Initialize the compressed graph
-    // TODO: verificar se é cópia profunda ou rasa
-    Graph graph_compressed = Graph(this->nodes, this->communities);
+    Graph graph_compressed = Graph(this);
+    graph_compressed.printGraph();
 
     // 5 - 24 (Repeat until)
     while (not D1.empty() || not D2.empty()) {

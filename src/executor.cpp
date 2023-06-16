@@ -17,6 +17,7 @@
 #include <istream>   // std::istringstream
 #include <sstream>   // std::stringstream
 #include <string>    // std::string
+#include <chrono>
 
 void processLine(std::string line, Graph* graph) {
     std::istringstream edge(line);
@@ -39,8 +40,9 @@ void processLine(std::string line, Graph* graph) {
         graph->addNode(node2);
     }
     else {
-        node1 = graph->getNodeReference(id_node1);
+        node2 = graph->getNodeReference(id_node2);
     }
+    std::cout << id_node1 << " " << id_node2 << std::endl;
 
     // Adicionar na lista de adjacência de cada nó
     node1->addAdjacent({node2, 1});
@@ -62,7 +64,38 @@ void readFile(char const fileName[], Graph* graph) {
     }
 
     std::string line;
+    int numberOfEdges{0};
     while (std::getline(file_data, line)) {
         processLine(line, graph);
+        numberOfEdges++;
     }
+    graph->setNumberOfEdges(numberOfEdges);
+}
+
+void printResult(const std::chrono::time_point<std::chrono::steady_clock> &start,
+                       const std::chrono::time_point<std::chrono::steady_clock> &end,
+                       Graph graph) {
+    auto time = end - start;
+
+    std::ofstream out_file{"results/test.txt"};
+
+    // Milliseconds (10^-3)
+    out_file << ">> Tempo para encontrar as comunidades: ";
+    out_file << std::chrono::duration <double, std::milli> (time).count();
+    out_file << "ms\n" << std::endl;
+
+    out_file << ">> Número de comunidades detectadas: " << graph.getCommunities() << "\n" << std::endl;
+
+    out_file << ">> Comunidades detectadas:\n";
+
+    // for(auto comp : components) {
+    //     out_file << "\t > ";
+    //     for(int v : comp) {
+    //         out_file << v << " ";
+    //     }
+    //     out_file << "\n";
+    // }
+
+    out_file << "\n>> Número de vértices: " << graph.getNodes().size() << std::endl;
+    out_file << "\n>> Número de arestas: " << graph.getNumberOfEdges() << std::endl;
 }

@@ -15,7 +15,7 @@ class Node {
         std::map<Node*, double> adjacentNodes;
         std::set<int> IV; //? use DSU
     public:
-        Node(int, std::map<Node*, double> = {});
+        Node(int, std::set<int> = {}, std::map<Node*, double> = {});
         ~Node() = default;
 
         int getId();
@@ -32,6 +32,8 @@ class Node {
         void addIV(Node*);
         void removeFromAdjacents();
         void updateWeight(Node*, double);
+
+        void printNode();
 };
 
 #include "Node.inl"

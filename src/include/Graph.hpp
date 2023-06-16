@@ -3,17 +3,6 @@
 
 #include "Node.hpp"
 
-#include <algorithm> // std::find_if
-
-// struct find_by_id {
-//     private:
-//         int node_id;
-//     public:
-//         find_by_id(int id) : node_id{id} {}
-//         bool operator() (Node node) const {
-//             return node.getId() == node_id;
-//         }
-// };
 struct cmp {
     bool operator() (Node* a, Node* b) const {
         return a->getId() < b->getId();
@@ -23,13 +12,16 @@ struct cmp {
 class Graph {
     private:
         std::set<Node*, cmp> nodes;
-        std::set<int> communities;
+        int communities; // TODO: comunidades detectadas
+        int numberOfEdges;
     public:
-        Graph(std::set<Node*, cmp> = {}, std::set<int> = {});
+        Graph(std::set<Node*, cmp> = {}, int = 0, int = 0);
+        Graph(Graph*);
         ~Graph();
 
         std::set<Node*, cmp> getNodes();
-        std::set<int> getCommunities();
+        int getCommunities();
+        int getNumberOfEdges();
         Node* getNodeReference(int);
         bool nodeExists(int);
         bool edgeExists(Node*, Node*);
@@ -37,9 +29,13 @@ class Graph {
         void addNode(Node*);
         void removeNode(Node*);
         void addEdge(Node*, Node*, double);
+        void setNumberOfEdges(int);
         void updateWeight(Node*, Node*, Node*);
 
+        void printGraph();
+
         // TODO: retirar de Graph e colocar na main
+        void zhao();
         Graph compression();
         // Graph seed_determination();
         // Graph expansion();

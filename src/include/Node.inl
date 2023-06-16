@@ -1,10 +1,16 @@
 #include "Node.hpp"
 
-Node::Node(int identifier, std::map<Node*, double> lists)
+Node::Node(int identifier, std::set<int> super_node, std::map<Node*, double> lists)
     : id{identifier}, adjacentNodes{lists},
-      community{-1}, degree{(int) lists.size()},
-      IV{{this->id}}
-{}
+      community{-1}, degree{(int) lists.size()}
+{
+    if (super_node.empty()) {
+        IV.insert(identifier);
+    }
+    else {
+        IV = super_node;
+    }
+}
 
 //========= GETTERS
 int Node::getId() {
@@ -56,4 +62,15 @@ void Node::removeFromAdjacents() {
 void Node::updateWeight(Node* adjacent, double new_weight) {
     adjacentNodes.erase(adjacent);
     adjacentNodes.insert({adjacent, new_weight});
+}
+
+//========= OTHERS
+void Node::printNode() {
+    std::cout << "Nó: " << id;
+    std::cout << "       Adjacentes:";
+    for (auto it = adjacentNodes.begin(); it != adjacentNodes.end(); ++it) {
+        Node* node = (*it).first;
+        std::cout << " " << node->getId();
+    }
+    std::cout << std::endl;
 }
