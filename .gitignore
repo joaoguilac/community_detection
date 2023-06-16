@@ -36,6 +36,5 @@ build/**
 
 #Editors
 **/settings.json
-.vscode
 
 main
