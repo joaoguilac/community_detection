@@ -153,4 +153,11 @@ void Graph::printGraph() {
 void Graph::zhao() {
     Graph graph_compressed = compression();
     std::vector<Node*> seeds = graph_compressed.seed_determination();
+    std::cout << "====================================\n";
+    std::cout << "Seeds:";
+    for (size_t i{0}; i < seeds.size(); i++) {
+        std::cout << " " << seeds[i]->getId();
+    }
+    std::cout << std::endl;
+
 }
