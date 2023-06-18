@@ -16,6 +16,8 @@ int main(int argc, char const *argv[]) {
     graph.zhao();
     auto end = std::chrono::steady_clock::now();
 
+    std::cout << "Batata\n";
+
     printResult(start, end, graph);
 
     return 0;

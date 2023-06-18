@@ -25,20 +25,22 @@ class Graph {
         Node* getNodeReference(int);
         bool nodeExists(int);
         bool edgeExists(Node*, Node*);
+        bool isBridge(Node*);
 
         void addNode(Node*);
         void removeNode(Node*);
         void addEdge(Node*, Node*, double);
         void setNumberOfEdges(int);
         void updateWeight(Node*, Node*, Node*);
+        void setComunity(int);
 
         void printGraph();
 
         //? retirar de Graph e colocar na main
         void zhao();
         Graph compression();
-        // Graph seed_determination();
-        // Graph expansion();
+        std::vector<Node*> seed_determination();
+        Graph expansion(std::vector<Node*>);
         // Graph propagation();
 };
 

@@ -19,6 +19,9 @@ int Node::getId() {
 int Node::getDegree() {
     return degree;
 }
+int Node::getQuality() {
+    return adjacentNodes.size();
+}
 int Node::getCommunity() {
     return community;
 }
@@ -36,6 +39,16 @@ std::pair<Node*, double> Node::getEdge(Node* adjacent) {
         return std::pair<Node*, double>({adjacent, adjacentNodes[adjacent]});
     }
     return std::pair<Node*, double>({adjacent, -1});
+}
+double Node::getNormalizedDensity(int maxDensity) {
+    return (double)degree/(double)maxDensity;
+}
+double Node::getNormalizedQuality(int maxQuality) {
+    int quality = IV.size();
+    return (double)quality/(double)maxQuality;
+}
+double Node::getCentralityIndex(int maxDensity, int maxQuality) {
+    return this->getNormalizedDensity(maxDensity) * this->getNormalizedQuality(maxQuality);
 }
 
 //========= SETTERS
@@ -61,6 +74,9 @@ void Node::removeFromAdjacents() {
 void Node::updateWeight(Node* adjacent, double new_weight) {
     adjacentNodes.erase(adjacent);
     adjacentNodes.insert({adjacent, new_weight});
+}
+void Node::setComunity(int comunityNumber){
+    community = comunityNumber;
 }
 
 //========= OTHERS

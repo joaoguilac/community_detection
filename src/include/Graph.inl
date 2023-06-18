@@ -65,6 +65,39 @@ bool Graph::nodeExists(int id) {
 bool Graph::edgeExists(Node* node1, Node* node2) {
     return node1->edgeExists(node2);
 }
+bool Graph::isBridge(Node* vi) {
+    // assumes that vi's degree is 2
+
+    // adjacnt nodes to vi
+    Node* vj = vi->getAdjacents().begin()->first;
+    Node* vk = (vi->getAdjacents().begin()++)->first;
+
+    /* 
+        Does a bfs to find vj begining from vk without passing trough vi.
+        If vk is found means that taking vi from the graph doesn't disconet it,
+        in other words, vi is not a bridge.
+    */
+
+    std::queue<Node*> my_queue;
+    std::set<Node*> visited_nodes;
+    my_queue.push(vj);
+    visited_nodes.emplace(vi);
+    visited_nodes.emplace(vj);
+
+    // bfs
+    while (!my_queue.empty() && visited_nodes.find(vk) == visited_nodes.end()) {
+        Node* cur_node = my_queue.front();
+        my_queue.pop();
+        std::map<Node*, double> adjacent_nodes = cur_node->getAdjacents();
+        for(auto it = adjacent_nodes.begin(); it != adjacent_nodes.end(); ++it) {
+            Node* cur_adjacent = it->first;
+            my_queue.emplace(cur_adjacent);
+        }
+    }
+
+    // check if vk is visited
+    return visited_nodes.find(vk) == visited_nodes.end();
+}
 
 //========= SETTERS
 void Graph::addNode(Node* n_) {
@@ -74,7 +107,7 @@ void Graph::removeNode(Node* n_) {
     n_->removeFromAdjacents();
     auto itr = nodes.find(n_);
     nodes.erase(itr);
-    delete *itr;
+    // delete *itr;
 }
 void Graph::addEdge(Node* node1, Node* node2, double weight) {
     node1->addAdjacent({node2, weight});
@@ -92,6 +125,9 @@ void Graph::updateWeight(Node* vi, Node* vj, Node* vk) {
     vj->updateWeight(vk, new_weight);
     vk->updateWeight(vj, new_weight);
 }
+void Graph::setComunity(int comunityNumber){
+    communities = comunityNumber;
+}
 
 //========= OTHERS
 void Graph::printGraph() {
@@ -104,4 +140,5 @@ void Graph::printGraph() {
 }
 void Graph::zhao() {
     Graph graph_compressed = compression();
+    std::vector<Node*> seeds = graph_compressed.seed_determination();
 }

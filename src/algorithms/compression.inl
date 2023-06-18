@@ -3,27 +3,26 @@
 Graph Graph::compression() {
     // 4. Initialize the compressed graph
     Graph graph_compressed = Graph(this);
-    graph_compressed.printGraph();
 
     // 3. Initialize sets of vertices with a degree of 1 and 2
-    std::set<Node*> D1, D2;
+    std::queue<Node*> D1, D2;
     auto new_nodes = graph_compressed.getNodes();
     for (auto it = new_nodes.begin(); it != new_nodes.end(); ++it) {
         Node* node = *it;
         if (node->getDegree() == 1) {
-            D1.insert(node);
+            D1.push(node);
         }
         else if (node->getDegree() == 2) {
-            D2.insert(node);
+            D2.push(node);
         }
     }
 
     // 5 - 24 (Repeat until)
     while (not D1.empty() || not D2.empty()) {
         // 6 - 11 (for D1)
-        auto node = D1.begin();
-        while (not D1.empty() && node != D1.end()) {
-            Node* vi = *node;
+        // auto node = D1.front();
+        while (not D1.empty()) {
+            Node* vi = D1.front();
             Node* vj = vi->getAdjacents().begin()->first;
             // 8. update including vertices
             vj->addIV(vi);
@@ -32,24 +31,28 @@ Graph Graph::compression() {
             graph_compressed.removeNode(vi);
             // 9. add vj to D1 or D2
             if (vj->getDegree() == 1) {
-                D1.insert(vj);
+                D1.push(vj);
             }
             else if (vj->getDegree() == 2) {
-                D2.insert(vj);
+                D2.push(vj);
             }
             // 10. update D1 (remove vi)
-            D1.erase(vi);
-            ++node;
+            D1.pop();
+            delete vi;
+
         }
         // 12 - 23 (for D2)
-        node = D2.begin();
         // TODO: segmentation fault
-        while (not D2.empty() && node != D2.end()) {
-            auto vi = *node;
+        while (not D2.empty()) {
+            Node* vi = D2.front();
             // TODO: 13 - 21. vi is a bridge node?
-            if (false) {
-                auto vj = vi->getAdjacents().begin()->first;
-                auto vk = (vi->getAdjacents().begin()++)->first;
+            if (!graph_compressed.isBridge(vi)) {
+                auto adjacents = vi->getAdjacents();
+                auto it = adjacents.begin();
+
+                Node* vj = it->first;
+                ++it;
+                Node* vk = it->first;
                 // 19. update including vertices
                 if (vj->getDegree() >= vk->getDegree()) {
                     vj->addIV(vi);
@@ -70,23 +73,24 @@ Graph Graph::compression() {
                 graph_compressed.updateWeight(vi, vj, vk);
                 // 20. add vj to D1 or D2
                 if (vj->getDegree() == 1) {
-                    D1.insert(vj);
+                    D1.push(vj);
                 }
                 else if (vj->getDegree() == 2) {
-                    D2.insert(vj);
+                    D2.push(vj);
                 }
                 // 20. add vK to D1 or D2
                 if (vk->getDegree() == 1) {
-                    D1.insert(vk);
+                    D1.push(vk);
                 }
                 else if (vk->getDegree() == 2) {
-                    D2.insert(vk);
+                    D2.push(vk);
                 }
             }
             // 22. update D2 (remove vi)
-            D2.erase(vi);
-            ++node;
+            D2.pop();
+            delete vi;
         }
     }
+    graph_compressed.printGraph();
     return graph_compressed;
 }
