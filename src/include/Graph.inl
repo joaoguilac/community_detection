@@ -69,37 +69,44 @@ bool Graph::isBridge(Node* vi) {
     // assumes that vi's degree is 2
 
     // adjacent nodes to vi
-    Node* vj = vi->getAdjacents().begin()->first;
-    Node* vk = (vi->getAdjacents().begin()++)->first;
+    auto adjacents = vi->getAdjacents();
+    auto it = adjacents.begin();
+    Node* vj = it->first;
+    it++;
+    Node* vk = it->first;
 
-    /* 
-        Does a bfs to find vj begining from vk without passing trough vi.
-        If vk is found means that taking vi from the graph doesn't disconet it,
-        in other words, vi is not a bridge.
-    */
+    bool value = !vk->edgeExists(vj);
 
-    std::queue<Node*> my_queue;
-    std::set<Node*> visited_nodes;
-    my_queue.push(vj);
-    visited_nodes.emplace(vi);
-    visited_nodes.emplace(vj);
+    return value;
 
-    // bfs
-    while (!my_queue.empty() && visited_nodes.find(vk) == visited_nodes.end()) {
-        Node* cur_node = my_queue.front();
-        my_queue.pop();
-        std::map<Node*, double> adjacent_nodes = cur_node->getAdjacents();
-        for(auto it = adjacent_nodes.begin(); it != adjacent_nodes.end(); ++it) {
-            Node* cur_adjacent = it->first;
-            if(visited_nodes.find(cur_adjacent) != visited_nodes.end()){
-                my_queue.emplace(cur_adjacent);
-                visited_nodes.emplace(cur_adjacent);
-            }
-        }
-    }
+    // /*
+    //     Does a bfs to find vj begining from vk without passing trough vi.
+    //     If vk is found means that taking vi from the graph doesn't disconet it,
+    //     in other words, vi is not a bridge.
+    // */
 
-    // check if vk is visited
-    return visited_nodes.find(vk) == visited_nodes.end();
+    // std::queue<Node*> my_queue;
+    // std::set<Node*> visited_nodes;
+    // my_queue.push(vj);
+    // visited_nodes.emplace(vi);
+    // visited_nodes.emplace(vj);
+
+    // // bfs
+    // while (!my_queue.empty() && visited_nodes.find(vk) == visited_nodes.end()) {
+    //     Node* cur_node = my_queue.front();
+    //     my_queue.pop();
+    //     std::map<Node*, double> adjacent_nodes = cur_node->getAdjacents();
+    //     for(auto it = adjacent_nodes.begin(); it != adjacent_nodes.end(); ++it) {
+    //         Node* cur_adjacent = it->first;
+    //         if(visited_nodes.find(cur_adjacent) != visited_nodes.end()){
+    //             my_queue.emplace(cur_adjacent);
+    //             visited_nodes.emplace(cur_adjacent);
+    //         }
+    //     }
+    // }
+
+    // // check if vk is visited
+    // return visited_nodes.find(vk) == visited_nodes.end();
 }
 
 //========= SETTERS
@@ -134,12 +141,14 @@ void Graph::setComunity(int comunityNumber){
 
 //========= OTHERS
 void Graph::printGraph() {
+    std::cout << "====================================\n";
     std::cout << ">> Número de vértices: " << nodes.size() << std::endl;
     std::cout << ">> Número de arestas: " << numberOfEdges << std::endl;
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
         Node* node = *it;
         node->printNode();
     }
+    std::cout << std::endl;
 }
 void Graph::zhao() {
     Graph graph_compressed = compression();

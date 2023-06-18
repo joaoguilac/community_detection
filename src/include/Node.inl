@@ -82,7 +82,18 @@ void Node::setComunity(int comunityNumber){
 //========= OTHERS
 void Node::printNode() {
     std::cout << "Nó: " << id;
-    std::cout << "       Adjacentes:";
+    auto IV = getIV();
+    for (auto it = IV.begin(); it != IV.end(); ++it) {
+        if (it == IV.begin()) {
+            std::cout << "[" << *it;
+        }
+        else {
+            std::cout << " " << *it;
+        }
+    }
+    std::cout << "]";
+
+    std::cout << " === Adjacentes:";
     for (auto it = adjacentNodes.begin(); it != adjacentNodes.end(); ++it) {
         Node* node = (*it).first;
         std::cout << " " << node->getId();

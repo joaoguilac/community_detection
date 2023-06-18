@@ -5,15 +5,15 @@ Graph Graph::compression() {
     Graph graph_compressed = Graph(this);
 
     // 3. Initialize sets of vertices with a degree of 1 and 2
-    std::queue<Node*> D1, D2;
+    std::vector<Node*> D1, D2;
     auto new_nodes = graph_compressed.getNodes();
     for (auto it = new_nodes.begin(); it != new_nodes.end(); ++it) {
         Node* node = *it;
         if (node->getDegree() == 1) {
-            D1.push(node);
+            D1.push_back(node);
         }
         else if (node->getDegree() == 2) {
-            D2.push(node);
+            D2.push_back(node);
         }
     }
 
@@ -24,7 +24,17 @@ Graph Graph::compression() {
         while (not D1.empty()) {
             Node* vi = D1.front();
             Node* vj = vi->getAdjacents().begin()->first;
-            bool d_vj_is_2 = (vj->getDegree() == 2);
+            if (vj->getDegree() == 2) {
+                int vj_index = -1;
+                for (size_t i{0}; i < D2.size(); i++) {
+                    if (D2[i] == vj) {
+                        vj_index = i;
+                        break;
+                    }
+                }
+
+                D2.erase(D2.begin()+vj_index, D2.begin()+vj_index+1);
+            }
             // 8. update including vertices
             vj->addIV(vi);
             // 7. remove adjacents edges of vi from compressed graph
@@ -32,18 +42,14 @@ Graph Graph::compression() {
             graph_compressed.removeNode(vi);
             // 9. add vj to D1 or D2
             if (vj->getDegree() == 1) {
-                D1.push(vj);
-                if(d_vj_is_2){
-
-                }
+                D1.push_back(vj);
             }
             else if (vj->getDegree() == 2) {
-                D2.push(vj);
+                D2.push_back(vj);
             }
             // 10. update D1 (remove vi)
-            D1.pop();
+            D1.erase(D1.begin(), D1.begin()+1);
             delete vi;
-
         }
         // 12 - 23 (for D2)
         while (not D2.empty()) {
@@ -65,32 +71,27 @@ Graph Graph::compression() {
                 // 14. remove adjacents edges of vi from compressed graph
                 // 14. remove vi from compressed graph
                 graph_compressed.removeNode(vi);
-                // 14. (vj, vk) exist in graph?
-                if (not graph_compressed.edgeExists(vj, vk)) {
-                    // 14. add edge (vj, vk)
-                    graph_compressed.addEdge(vj, vk, 0);
-                }
                 // 15 - 17. automatically done with Graph::addEdge() and Graph::removeEdges
                 // 18. update weight (vj, vk)
                 graph_compressed.updateWeight(vi, vj, vk);
                 // 20. add vj to D1 or D2
                 if (vj->getDegree() == 1) {
-                    D1.push(vj);
+                    D1.push_back(vj);
                 }
                 else if (vj->getDegree() == 2) {
-                    D2.push(vj);
+                    D2.push_back(vj);
                 }
                 // 20. add vK to D1 or D2
                 if (vk->getDegree() == 1) {
-                    D1.push(vk);
+                    D1.push_back(vk);
                 }
                 else if (vk->getDegree() == 2) {
-                    D2.push(vk);
+                    D2.push_back(vk);
                 }
+                delete vi;
             }
             // 22. update D2 (remove vi)
-            D2.pop();
-            delete vi;
+            D2.erase(D2.begin(), D2.begin()+1);
         }
     }
     graph_compressed.printGraph();

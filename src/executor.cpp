@@ -42,7 +42,6 @@ void processLine(std::string line, Graph* graph) {
     else {
         node2 = graph->getNodeReference(id_node2);
     }
-    std::cout << id_node1 << " " << id_node2 << std::endl;
 
     // Adicionar na lista de adjacência de cada nó
     node1->addAdjacent({node2, 1});
