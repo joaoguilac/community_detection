@@ -40,7 +40,7 @@ class Node {
         void addIV(Node*);
         void removeFromAdjacents();
         void updateWeight(Node*, double);
-        void setComunity(int);
+        void setCommunity(int);
 
         void printNode();
 };

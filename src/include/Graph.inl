@@ -2,7 +2,7 @@
 
 typedef std::pair<Node*, double> Edge;
 
-Graph::Graph(std::set<Node*, cmp> n_, int c_, int e_)
+Graph::Graph(std::set<Node*, cmp> n_, std::vector<Community> c_, int e_)
     : nodes{n_}, communities{c_}, numberOfEdges{e_}
 {}
 
@@ -30,17 +30,11 @@ Graph::Graph(Graph* g_)
     }
 }
 
-Graph::~Graph() {
-    // for (auto it = nodes.begin(); it != nodes.end(); ++it) {
-    //     delete *it;
-    // }
-}
-
 //========= GETTERS
 std::set<Node*, cmp> Graph::getNodes() {
     return nodes;
 }
-int Graph::getCommunities() {
+std::vector<Community> Graph::getCommunities() {
     return communities;
 }
 int Graph::getNumberOfEdges() {
@@ -119,6 +113,12 @@ void Graph::removeNode(Node* n_) {
     nodes.erase(itr);
     // delete *itr;
 }
+void Graph::addCommunity(Community community) {
+    communities.push_back(community);
+}
+void Graph::setComunity(std::vector<Community> c_) {
+    communities = c_;
+}
 void Graph::addEdge(Node* node1, Node* node2, double weight) {
     node1->addAdjacent({node2, weight});
     node2->addAdjacent({node1, weight});
@@ -134,9 +134,6 @@ void Graph::updateWeight(Node* vi, Node* vj, Node* vk) {
 
     vj->updateWeight(vk, new_weight);
     vk->updateWeight(vj, new_weight);
-}
-void Graph::setComunity(int comunityNumber){
-    communities = comunityNumber;
 }
 
 //========= OTHERS

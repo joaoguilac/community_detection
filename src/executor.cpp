@@ -83,7 +83,7 @@ void printResult(const std::chrono::time_point<std::chrono::steady_clock> &start
     out_file << std::chrono::duration <double, std::milli> (time).count();
     out_file << "ms\n" << std::endl;
 
-    out_file << ">> Número de comunidades detectadas: " << graph.getCommunities() << "\n" << std::endl;
+    out_file << ">> Número de comunidades detectadas: " << graph.getCommunities().size() << "\n" << std::endl;
 
     out_file << ">> Comunidades detectadas:\n";
 

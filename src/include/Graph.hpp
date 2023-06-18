@@ -2,6 +2,7 @@
 #define _GRAPH_H_
 
 #include "Node.hpp"
+#include "Community.hpp"
 
 struct cmp {
     bool operator() (Node* a, Node* b) const {
@@ -12,15 +13,15 @@ struct cmp {
 class Graph {
     private:
         std::set<Node*, cmp> nodes;
-        int communities; // TODO: comunidades detectadas
+        std::vector<Community> communities;
         int numberOfEdges;
     public:
-        Graph(std::set<Node*, cmp> = {}, int = 0, int = 0);
+        Graph(std::set<Node*, cmp> = {}, std::vector<Community> = {}, int = 0);
         Graph(Graph*);
         ~Graph();
 
         std::set<Node*, cmp> getNodes();
-        int getCommunities();
+        std::vector<Community> getCommunities();
         int getNumberOfEdges();
         Node* getNodeReference(int);
         bool nodeExists(int);
@@ -29,10 +30,11 @@ class Graph {
 
         void addNode(Node*);
         void removeNode(Node*);
+        void addCommunity(Community);
+        void setComunity(std::vector<Community>);
         void addEdge(Node*, Node*, double);
         void setNumberOfEdges(int);
         void updateWeight(Node*, Node*, Node*);
-        void setComunity(int);
 
         void printGraph();
 
@@ -40,7 +42,7 @@ class Graph {
         void zhao();
         Graph compression();
         std::vector<Node*> seed_determination();
-        Graph expansion(std::vector<Node*>);
+        std::vector<Community> expansion(std::vector<Node*>);
         // Graph propagation();
 };
 

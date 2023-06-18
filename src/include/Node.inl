@@ -75,8 +75,8 @@ void Node::updateWeight(Node* adjacent, double new_weight) {
     adjacentNodes.erase(adjacent);
     adjacentNodes.insert({adjacent, new_weight});
 }
-void Node::setComunity(int comunityNumber){
-    community = comunityNumber;
+void Node::setCommunity(int communityNumber){
+    community = communityNumber;
 }
 
 //========= OTHERS
