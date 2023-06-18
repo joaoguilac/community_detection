@@ -68,7 +68,7 @@ bool Graph::edgeExists(Node* node1, Node* node2) {
 bool Graph::isBridge(Node* vi) {
     // assumes that vi's degree is 2
 
-    // adjacnt nodes to vi
+    // adjacent nodes to vi
     Node* vj = vi->getAdjacents().begin()->first;
     Node* vk = (vi->getAdjacents().begin()++)->first;
 
@@ -91,7 +91,10 @@ bool Graph::isBridge(Node* vi) {
         std::map<Node*, double> adjacent_nodes = cur_node->getAdjacents();
         for(auto it = adjacent_nodes.begin(); it != adjacent_nodes.end(); ++it) {
             Node* cur_adjacent = it->first;
-            my_queue.emplace(cur_adjacent);
+            if(visited_nodes.find(cur_adjacent) != visited_nodes.end()){
+                my_queue.emplace(cur_adjacent);
+                visited_nodes.emplace(cur_adjacent);
+            }
         }
     }
 

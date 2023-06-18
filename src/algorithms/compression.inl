@@ -24,6 +24,7 @@ Graph Graph::compression() {
         while (not D1.empty()) {
             Node* vi = D1.front();
             Node* vj = vi->getAdjacents().begin()->first;
+            bool d_vj_is_2 = (vj->getDegree() == 2);
             // 8. update including vertices
             vj->addIV(vi);
             // 7. remove adjacents edges of vi from compressed graph
@@ -32,6 +33,9 @@ Graph Graph::compression() {
             // 9. add vj to D1 or D2
             if (vj->getDegree() == 1) {
                 D1.push(vj);
+                if(d_vj_is_2){
+
+                }
             }
             else if (vj->getDegree() == 2) {
                 D2.push(vj);
@@ -42,11 +46,9 @@ Graph Graph::compression() {
 
         }
         // 12 - 23 (for D2)
-        // TODO: segmentation fault
         while (not D2.empty()) {
             Node* vi = D2.front();
-            // TODO: 13 - 21. vi is a bridge node?
-            if (!graph_compressed.isBridge(vi)) {
+            if (not graph_compressed.isBridge(vi)) {
                 auto adjacents = vi->getAdjacents();
                 auto it = adjacents.begin();
 
