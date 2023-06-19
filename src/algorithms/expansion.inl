@@ -27,6 +27,7 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
         UL.erase(itr);
     }
 
+    std::vector<Community> communities = graph_seeding.getCommunities();
     // (3-17) while UL isn't empty
     while (not UL.empty()) {
         // (4) initializing TC
@@ -36,7 +37,6 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
         }
         // (5) Compute common neighbors of the communities
         std::set<Node*> CV;
-        std::vector<Community> communities = graph_seeding.getCommunities();
         for (int i{0}; i < k; i++) {
             Community community = communities[i];
             auto neighbors = community.getNeighbors();
@@ -49,26 +49,28 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
             CV.erase(it);
             // 7 - 14 (u is unlabeled)
             if (UL.find(u) != UL.end()) {
+                bool is_subset = false;
+                // 8 - 9 adjacents of u are subset of C_i
                 for (int i{0}; i < k; i++) {
-                    // 8 - 9 adjacents of u are subset of C_i
                     if (communities[i].neighborsIsSubset(u)) {
                         TC[i].insert(u);
-                    }
-                    else {
-                        // 11 - calculate argmaxsim
-                        double argmaxsim = -1;
-                        int index_maxsim = -1;
-                        for (int i{0}; i < k; i++) {
-                            double actual_sim = communities[i].sim(u);
-                            if (actual_sim >= argmaxsim) {
-                                argmaxsim = actual_sim;
-                                index_maxsim = i;
-                            }
-                        }
-                        TC[index_maxsim].insert(u);
+                        is_subset = true;
+                        break;
                     }
                 }
-
+                if(not is_subset) {
+                    // 11 - calculate argmaxsim
+                    double argmaxsim = -1;
+                    int index_maxsim = -1;
+                    for (int i{0}; i < k; i++) {
+                        double actual_sim = communities[i].sim(u);
+                        if (actual_sim >= argmaxsim) {
+                            argmaxsim = actual_sim;
+                            index_maxsim = i;
+                        }
+                    }
+                    TC[index_maxsim].insert(u);
+                }
             }
             // (13) remove u from UL
             UL.erase(u);
