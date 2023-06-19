@@ -2,8 +2,6 @@
 
 #include "executor.cpp"
 
-// #include <chrono>
-
 int main(int argc, char const *argv[]) {
     Graph graph;
     readFile(argv[1], &graph);

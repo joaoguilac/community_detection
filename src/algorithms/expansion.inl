@@ -4,7 +4,7 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
 
     Graph graph_seeding = Graph(this);
 
-    // (1) initializing the comunities set
+    // (1) initializing the communities set
     int k = seeds.size();
     for (int i{0}; i < k; ++i) {
         Node* relative_node = seeds[i];
@@ -31,28 +31,41 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
     while (not UL.empty()) {
         // (4) initializing TC
         std::vector<std::set<Node*>> TC;
-        for (size_t i{0}; i < k; i++) {
+        for (int i{0}; i < k; i++) {
             TC.push_back({});
         }
         // (5) Compute common neighbors of the communities
         std::set<Node*> CV;
         std::vector<Community> communities = graph_seeding.getCommunities();
-        for (size_t i{0}; i < k; i++) {
+        for (int i{0}; i < k; i++) {
             Community community = communities[i];
             auto neighbors = community.getNeighbors();
             CV.merge(neighbors);
         }
         // 6 - 15 (for CV)
-        for (auto it = CV.begin(); it != CV.end(); ++it) {
+        while (not CV.empty()) {
+            auto it = CV.begin();
             Node* u = *it;
+            CV.erase(it);
             // 7 - 14 (u is unlabeled)
             if (UL.find(u) != UL.end()) {
-                for (size_t i{0}; i < k; i++) {
+                for (int i{0}; i < k; i++) {
+                    // 8 - 9 adjacents of u are subset of C_i
                     if (communities[i].neighborsIsSubset(u)) {
                         TC[i].insert(u);
                     }
                     else {
-
+                        // 11 - calculate argmaxsim
+                        double argmaxsim = -1;
+                        int index_maxsim = -1;
+                        for (int i{0}; i < k; i++) {
+                            double actual_sim = communities[i].sim(u);
+                            if (actual_sim >= argmaxsim) {
+                                argmaxsim = actual_sim;
+                                index_maxsim = i;
+                            }
+                        }
+                        TC[index_maxsim].insert(u);
                     }
                 }
 
@@ -60,6 +73,11 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
             // (13) remove u from UL
             UL.erase(u);
         }
+        // (16) update C_i
+        for (int i{0}; i < k; i++) {
+            communities[i].addNodes(TC[i]);
+        }
+
     }
 
     return graph_seeding.getCommunities();

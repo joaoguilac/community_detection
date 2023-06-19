@@ -8,10 +8,15 @@ class Community {
         std::set<Node*> members;
     public:
         Community(std::set<Node*> = {});
-        ~Community();
+        ~Community() = default;
 
         std::set<Node*> getNeighbors();
         bool neighborsIsSubset(Node*);
+        double sim(Node*);
+
+        void addNodes(std::set<Node*>);
+
+        void printCommunity();
 };
 
 #include "Community.inl"

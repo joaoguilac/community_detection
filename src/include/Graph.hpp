@@ -18,7 +18,7 @@ class Graph {
     public:
         Graph(std::set<Node*, cmp> = {}, std::vector<Community> = {}, int = 0);
         Graph(Graph*);
-        ~Graph();
+        ~Graph() = default;
 
         std::set<Node*, cmp> getNodes();
         std::vector<Community> getCommunities();
@@ -31,12 +31,13 @@ class Graph {
         void addNode(Node*);
         void removeNode(Node*);
         void addCommunity(Community);
-        void setComunity(std::vector<Community>);
+        void setCommunity(std::vector<Community>);
         void addEdge(Node*, Node*, double);
         void setNumberOfEdges(int);
         void updateWeight(Node*, Node*, Node*);
 
         void printGraph();
+        void printCommunities();
 
         //? retirar de Graph e colocar na main
         void zhao();

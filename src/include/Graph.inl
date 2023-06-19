@@ -116,7 +116,7 @@ void Graph::removeNode(Node* n_) {
 void Graph::addCommunity(Community community) {
     communities.push_back(community);
 }
-void Graph::setComunity(std::vector<Community> c_) {
+void Graph::setCommunity(std::vector<Community> c_) {
     communities = c_;
 }
 void Graph::addEdge(Node* node1, Node* node2, double weight) {
@@ -147,8 +147,18 @@ void Graph::printGraph() {
     }
     std::cout << std::endl;
 }
+void Graph::printCommunities() {
+    std::cout << "====================================\n";
+    std::cout << "Comunidades identificadas: " << std::endl;
+    for (size_t i{0}; i < communities.size(); i++) {
+        std::cout << "Comunidade " << i << ": [";
+        communities[i].printCommunity();
+    }
+    std::cout << " ]" << std::endl;
+}
 void Graph::zhao() {
     Graph graph_compressed = compression();
+
     std::vector<Node*> seeds = graph_compressed.seed_determination();
     std::cout << "====================================\n";
     std::cout << "Seeds:";
@@ -157,4 +167,7 @@ void Graph::zhao() {
     }
     std::cout << std::endl;
 
+    std::vector<Community> r_communities = graph_compressed.expansion(seeds);
+    graph_compressed.setCommunity(r_communities);
+    graph_compressed.printCommunities();
 }
