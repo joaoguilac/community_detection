@@ -171,4 +171,6 @@ void Graph::zhao() {
     std::vector<Community> r_communities = graph_compressed.expansion(seeds);
     graph_compressed.setCommunity(r_communities);
     graph_compressed.printCommunities();
+    this->propagation(r_communities);
+    this->printCommunities();
 }

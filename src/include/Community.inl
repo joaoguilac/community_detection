@@ -75,6 +75,9 @@ double Community::sim(Node* u) {
 
     return first_sum + second_sum;
 }
+std::set<Node*> Community::getMembers() {
+    return members;
+}
 
 //========= SETTERS
 void Community::addNodes(std::set<Node*> add_nodes) {

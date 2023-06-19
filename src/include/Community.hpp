@@ -13,6 +13,7 @@ class Community {
         std::set<Node*> getNeighbors();
         bool neighborsIsSubset(Node*);
         double sim(Node*);
+        std::set<Node*> getMembers();
 
         void addNodes(std::set<Node*>);
 
