@@ -153,8 +153,9 @@ void Graph::printCommunities() {
     for (size_t i{0}; i < communities.size(); i++) {
         std::cout << "Comunidade " << i << ": [";
         communities[i].printCommunity();
+        std::cout << " ]" << std::endl;
     }
-    std::cout << " ]" << std::endl;
+    std::cout << std::endl;
 }
 void Graph::zhao() {
     Graph graph_compressed = compression();

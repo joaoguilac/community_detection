@@ -49,8 +49,8 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
             CV.erase(it);
             // 7 - 14 (u is unlabeled)
             if (UL.find(u) != UL.end()) {
-                bool is_subset = false;
                 // 8 - 9 adjacents of u are subset of C_i
+                bool is_subset = false;
                 for (int i{0}; i < k; i++) {
                     if (communities[i].neighborsIsSubset(u)) {
                         TC[i].insert(u);
@@ -58,7 +58,7 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
                         break;
                     }
                 }
-                if(not is_subset) {
+                if (not is_subset) {
                     // 11 - calculate argmaxsim
                     double argmaxsim = -1;
                     int index_maxsim = -1;
@@ -82,5 +82,5 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
 
     }
 
-    return graph_seeding.getCommunities();
+    return communities;
 }

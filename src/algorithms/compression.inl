@@ -61,6 +61,7 @@ Graph Graph::compression() {
                 Node* vj = it->first;
                 ++it;
                 Node* vk = it->first;
+
                 // 19. update including vertices
                 if (vj->getDegree() >= vk->getDegree()) {
                     vj->addIV(vi);
