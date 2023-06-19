@@ -79,7 +79,6 @@ std::vector<Community> Graph::expansion(std::vector<Node*> seeds) {
         for (int i{0}; i < k; i++) {
             communities[i].addNodes(TC[i]);
         }
-
     }
 
     return communities;

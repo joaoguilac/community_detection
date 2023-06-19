@@ -44,13 +44,13 @@ class Graph {
         Graph compression();
         std::vector<Node*> seed_determination();
         std::vector<Community> expansion(std::vector<Node*>);
-        // Graph propagation();
+        std::vector<Community> propagation();
 };
 
 #include "Graph.inl"
 #include "../algorithms/compression.inl"
+#include "../algorithms/seed_determination.inl"
 #include "../algorithms/expansion.inl"
 #include "../algorithms/propagation.inl"
-#include "../algorithms/seed_determination.inl"
 
 #endif

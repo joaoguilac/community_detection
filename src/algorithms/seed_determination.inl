@@ -4,7 +4,6 @@ std::vector<Node*> Graph::seed_determination() {
 
     // (1) Calculating max density and max quality
     // the normalization will be done whith a function call
-
     int maxDensity{0};
     int maxQuality{0};
 
@@ -26,7 +25,6 @@ std::vector<Node*> Graph::seed_determination() {
     std::sort(centralityIndexes.rbegin(), centralityIndexes.rend());
 
     // (3) computing the second order diference of the centrality indexes
-
     std::vector<double> secondDiference;
 
     int nc = this->nodes.size();
@@ -37,7 +35,6 @@ std::vector<Node*> Graph::seed_determination() {
     }
 
     // (4) finding the knee point
-
     int knee_point = 0;
 
     for(int i{1}; i < nc; ++i){
@@ -48,45 +45,46 @@ std::vector<Node*> Graph::seed_determination() {
     knee_point++;
 
     // (5) finding the potential comunity seeds
-
-    std::vector<Node*> comunity_seeds;
+    std::vector<Node*> community_seeds;
     for(int i{0}; i < knee_point; ++i) {
-        comunity_seeds.push_back(centralityIndexes[i].second);
+        community_seeds.push_back(centralityIndexes[i].second);
     }
 
     // (6-8) eliminating adjacent seeds
-
     for(int i{0}; i < knee_point; ++i) {
-        Node* vi = comunity_seeds[i];
+        Node* vi = community_seeds[i];
         if(vi == nullptr) continue;
         for(int j{i+1}; j < knee_point; ++j) {
-            Node* vj = comunity_seeds[j];
+            Node* vj = community_seeds[j];
             if(vj == nullptr) continue;
 
             if(vi->edgeExists(vj)){
-                comunity_seeds[j] = nullptr;
+                community_seeds[j] = nullptr;
             }
         }
     }
 
     int slow = 0;
     for(int fast{0}; fast < knee_point; ++fast) {
-        if(comunity_seeds[fast] != nullptr){
-            comunity_seeds[slow] = comunity_seeds[fast];
+        if(community_seeds[fast] != nullptr){
+            community_seeds[slow] = community_seeds[fast];
             ++slow;
         }
     }
-    comunity_seeds.resize(slow);
+    community_seeds.resize(slow);
+    for (int i{0}; i < community_seeds.size(); i++) {
+        community_seeds[i]->setCommunity(i);
+    }
 
     // Graph graph_seeded = Graph(this);
     // for(int i{0}; i < knee_point; ++i) {
-    //     Node* cur_node = comunity_seeds[i];
+    //     Node* cur_node = community_seeds[i];
     //     int id = cur_node->getId();
     //     Node* relative = graph_seeded.getNodeReference(id);
-    //     relative->setComunity(i);
+    //     relative->setCommunity(i);
     // }
 
-    // graph_seeded.setComunity(knee_point);
+    // graph_seeded.setCommunity(knee_point);
 
-    return comunity_seeds;
+    return community_seeds;
 }
