@@ -11,7 +11,7 @@
 #include "include/Graph.hpp"
 #include "include/Node.hpp"
 
-#include <fstream>   // std::ifstream
+#include <fstream>   // std::ifstream std::ofstream
 #include <ios>       // ios_base::in
 #include <iostream>  // st::cout, std::cin, std::endl
 #include <istream>   // std::istringstream
@@ -48,17 +48,17 @@ void processLine(std::string line, Graph* graph) {
     node2->addAdjacent({node1, 1});
 }
 
-void readFile(char const fileName[], Graph* graph) {
+void readFile(std::string file_path, Graph* graph) {
     // Validação inicial dos argumentos
-    if (fileName == nullptr) {
+    if (file_path.empty()) {
         std::cerr << "ERRO :: Argumento com o caminho para o arquivo de teste não foi especificado." << std::endl;
         exit(1);
     }
 
-    std::ifstream file_data(fileName);
+    std::ifstream file_data(file_path);
 
     if (not file_data.is_open()) {
-        std::cerr << "ERRO :: Arquivo " << fileName << " informado é inválido." << std::endl << std::endl;
+        std::cerr << "ERRO :: Arquivo " << file_path << " informado é inválido." << std::endl << std::endl;
         exit(1);
     }
 
@@ -72,29 +72,34 @@ void readFile(char const fileName[], Graph* graph) {
 }
 
 void printResult(const std::chrono::time_point<std::chrono::steady_clock> &start,
-                       const std::chrono::time_point<std::chrono::steady_clock> &end,
-                       Graph graph) {
+                 const std::chrono::time_point<std::chrono::steady_clock> &end,
+                 Graph graph, std::string file_path) {
     auto time = end - start;
 
-    std::ofstream out_file{"results/test.txt"};
+    std::ofstream results("results/" + file_path, std::ios::app);
+    results << "=================================================\n";
 
     // Milliseconds (10^-3)
-    out_file << ">> Tempo para encontrar as comunidades: ";
-    out_file << std::chrono::duration <double, std::milli> (time).count();
-    out_file << "ms\n" << std::endl;
+    results << ">> Tempo para encontrar as comunidades: ";
+    results << std::chrono::duration <double, std::milli> (time).count();
+    results << "ms\n" << std::endl;
 
-    out_file << ">> Número de comunidades detectadas: " << graph.getCommunities().size() << "\n" << std::endl;
+    results << ">> Número de vértices: " << graph.getNodes().size() << std::endl;
+    results << ">> Número de arestas: " << graph.getNumberOfEdges() << std::endl;
 
-    out_file << ">> Comunidades detectadas:\n";
+    auto communities = graph.getCommunities();
+    results << ">> Número de comunidades detectadas: " << communities.size() << "\n" << std::endl;
+    results << ">> Comunidades detectadas:\n";
 
-    // for(auto comp : components) {
-    //     out_file << "\t > ";
-    //     for(int v : comp) {
-    //         out_file << v << " ";
-    //     }
-    //     out_file << "\n";
-    // }
-
-    out_file << "\n>> Número de vértices: " << graph.getNodes().size() << std::endl;
-    out_file << "\n>> Número de arestas: " << graph.getNumberOfEdges() << std::endl;
+    for (size_t i{0}; i < communities.size(); i++) {
+        results << "\tComunidade " << i << ": [";
+        auto members = communities[i].getMembers();
+        for (auto it = members.begin(); it != members.end(); ++it) {
+            Node* node = *it;
+            results << " " << node->getId();
+        }
+        results << " ]" << std::endl;
+    }
+    results << std::endl;
+    results.close();
 }

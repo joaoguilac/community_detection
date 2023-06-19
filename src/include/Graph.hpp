@@ -4,6 +4,8 @@
 #include "Node.hpp"
 #include "Community.hpp"
 
+#include <string>
+
 struct cmp {
     bool operator() (Node* a, Node* b) const {
         return a->getId() < b->getId();
@@ -37,7 +39,7 @@ class Graph {
         void updateWeight(Node*, Node*, Node*);
 
         void printGraph();
-        void printCommunities();
+        void printCommunities(std::string);
 
         //? retirar de Graph e colocar na main
         void zhao();

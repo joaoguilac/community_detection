@@ -41,9 +41,6 @@ int Graph::getNumberOfEdges() {
     return numberOfEdges;
 }
 Node* Graph::getNodeReference(int id) {
-    // auto itr_node = std::find_if(nodes.begin(),
-    //                              nodes.end(),
-    //                              find_by_id(id));
     Node* node_test = new Node(id);
     auto itr_node = nodes.lower_bound(node_test);
     delete node_test;
@@ -138,7 +135,7 @@ void Graph::updateWeight(Node* vi, Node* vj, Node* vk) {
 
 //========= OTHERS
 void Graph::printGraph() {
-    std::cout << "====================================\n";
+    std::cout << "=================================================\n";
     std::cout << ">> Número de vértices: " << nodes.size() << std::endl;
     std::cout << ">> Número de arestas: " << numberOfEdges << std::endl;
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
@@ -147,9 +144,9 @@ void Graph::printGraph() {
     }
     std::cout << std::endl;
 }
-void Graph::printCommunities() {
-    std::cout << "====================================\n";
-    std::cout << "Comunidades identificadas: " << std::endl;
+void Graph::printCommunities(std::string graph_type) {
+    std::cout << "=================================================\n";
+    std::cout << "Comunidades identificadas " << graph_type << ":" << std::endl;
     for (size_t i{0}; i < communities.size(); i++) {
         std::cout << "Comunidade " << i << ": [";
         communities[i].printCommunity();
@@ -158,19 +155,27 @@ void Graph::printCommunities() {
     std::cout << std::endl;
 }
 void Graph::zhao() {
-    Graph graph_compressed = compression();
+    this->printGraph();
 
+    // compression
+    Graph graph_compressed = compression();
+    graph_compressed.printGraph();
+
+    // seed determination
     std::vector<Node*> seeds = graph_compressed.seed_determination();
-    std::cout << "====================================\n";
+    std::cout << "=================================================\n";
     std::cout << "Seeds:";
     for (size_t i{0}; i < seeds.size(); i++) {
         std::cout << " " << seeds[i]->getId();
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
+    // expansion
     std::vector<Community> r_communities = graph_compressed.expansion(seeds);
     graph_compressed.setCommunity(r_communities);
-    graph_compressed.printCommunities();
+    graph_compressed.printCommunities("no grafo comprimido");
+
+    // propagation
     this->propagation(r_communities);
-    this->printCommunities();
+    this->printCommunities("após expansão");
 }

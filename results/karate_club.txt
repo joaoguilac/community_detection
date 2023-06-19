@@ -1,0 +1,77 @@
+=================================================
+>> Tempo para encontrar as comunidades: 2.31074ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 1.63159ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 1.44491ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 2.45178ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 1.91392ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 2.43348ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 2.25744ms
+
+>> Número de vértices: 34
+>> Número de arestas: 78
+>> Número de comunidades detectadas: 2
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 9 10 24 26 25 28 29 30 27 31 32 33 15 16 19 21 23 34 ]
+	Comunidade 1: [ 1 2 3 4 5 6 7 8 11 12 13 14 17 18 20 22 ]
+

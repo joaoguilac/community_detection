@@ -12,3 +12,19 @@ Alunos:
 ```bash
 g++ -Wall -std=c++17 -g src/main.cpp -I src/include -o build/run
 ```
+
+## Execução
+
+Manualmente:
+
+```bash
+build/run data/<input_file.txt> results/<output_file.txt>
+```
+
+Pode-se usar o script `run.sh`:
+
+```bash
+./run.sh <arquivo_de_teste.txt>
+```
+
+OBS: Antes de poder executar o script, dê permissão de execução a este arquivo utilizando o comando `chmod +x run.sh`.

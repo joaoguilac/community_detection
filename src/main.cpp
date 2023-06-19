@@ -4,15 +4,15 @@
 
 int main(int argc, char const *argv[]) {
     Graph graph;
-    readFile(argv[1], &graph);
-
-    graph.printGraph();
+    std::string input_file = argv[1];
+    readFile(input_file, &graph);
 
     auto start = std::chrono::steady_clock::now();
     graph.zhao();
     auto end = std::chrono::steady_clock::now();
 
-    printResult(start, end, graph);
+    std::string output_file = argv[2];
+    printResult(start, end, graph, output_file);
 
     return 0;
 }

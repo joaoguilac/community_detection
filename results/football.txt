@@ -1,0 +1,108 @@
+=================================================
+>> Tempo para encontrar as comunidades: 17.4061ms
+
+>> Número de vértices: 115
+>> Número de arestas: 613
+>> Número de comunidades detectadas: 18
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 0 4 104 9 16 41 23 93 ]
+	Comunidade 1: [ 73 110 114 67 46 53 49 83 88 ]
+	Comunidade 2: [ 2 100 13 47 15 60 106 32 39 ]
+	Comunidade 3: [ 7 77 82 ]
+	Comunidade 4: [ 3 5 81 84 97 98 10 ]
+	Comunidade 5: [ 1 33 37 103 105 45 109 89 25 ]
+	Comunidade 6: [ 57 92 44 66 80 91 112 48 86 ]
+	Comunidade 7: [ 35 101 55 19 79 94 29 30 ]
+	Comunidade 8: [ 113 20 62 95 70 75 76 56 59 ]
+	Comunidade 9: [ 65 27 17 96 87 63 ]
+	Comunidade 10: [ 64 6 ]
+	Comunidade 11: [ 34 18 99 71 54 61 31 ]
+	Comunidade 12: [ 108 68 8 78 111 21 22 51 ]
+	Comunidade 13: [ 14 26 85 12 38 43 ]
+	Comunidade 14: [ 72 74 102 40 52 107 ]
+	Comunidade 15: [ 90 11 28 69 50 24 ]
+	Comunidade 16: [ 58 36 ]
+	Comunidade 17: [ 42 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 19.1897ms
+
+>> Número de vértices: 115
+>> Número de arestas: 613
+>> Número de comunidades detectadas: 18
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 0 4 104 9 16 41 23 93 ]
+	Comunidade 1: [ 73 110 114 67 46 53 49 83 88 ]
+	Comunidade 2: [ 2 100 13 47 15 60 106 32 39 ]
+	Comunidade 3: [ 7 77 82 ]
+	Comunidade 4: [ 3 5 81 84 97 98 10 ]
+	Comunidade 5: [ 1 33 37 103 105 45 109 89 25 ]
+	Comunidade 6: [ 57 92 44 66 80 91 112 48 86 ]
+	Comunidade 7: [ 35 101 55 19 79 94 29 30 ]
+	Comunidade 8: [ 113 20 62 95 70 75 76 56 59 ]
+	Comunidade 9: [ 65 27 17 96 87 63 ]
+	Comunidade 10: [ 64 6 ]
+	Comunidade 11: [ 34 18 99 71 54 61 31 ]
+	Comunidade 12: [ 108 68 8 78 111 21 22 51 ]
+	Comunidade 13: [ 14 26 85 12 38 43 ]
+	Comunidade 14: [ 72 74 102 40 52 107 ]
+	Comunidade 15: [ 90 11 28 69 50 24 ]
+	Comunidade 16: [ 58 36 ]
+	Comunidade 17: [ 42 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 16.0004ms
+
+>> Número de vértices: 115
+>> Número de arestas: 613
+>> Número de comunidades detectadas: 18
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 0 4 104 9 16 41 23 93 ]
+	Comunidade 1: [ 73 110 114 67 46 53 49 83 88 ]
+	Comunidade 2: [ 2 100 13 47 15 60 106 32 39 ]
+	Comunidade 3: [ 7 77 82 ]
+	Comunidade 4: [ 3 5 81 84 97 98 10 ]
+	Comunidade 5: [ 1 33 37 103 105 45 109 89 25 ]
+	Comunidade 6: [ 57 92 44 66 80 91 112 48 86 ]
+	Comunidade 7: [ 35 101 55 19 79 94 29 30 ]
+	Comunidade 8: [ 113 20 62 95 70 75 76 56 59 ]
+	Comunidade 9: [ 65 27 17 96 87 63 ]
+	Comunidade 10: [ 64 6 ]
+	Comunidade 11: [ 34 18 99 71 54 61 31 ]
+	Comunidade 12: [ 108 68 8 78 111 21 22 51 ]
+	Comunidade 13: [ 14 26 85 12 38 43 ]
+	Comunidade 14: [ 72 74 102 40 52 107 ]
+	Comunidade 15: [ 90 11 28 69 50 24 ]
+	Comunidade 16: [ 58 36 ]
+	Comunidade 17: [ 42 ]
+
+=================================================
+>> Tempo para encontrar as comunidades: 16.3169ms
+
+>> Número de vértices: 115
+>> Número de arestas: 613
+>> Número de comunidades detectadas: 18
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 0 4 104 9 16 41 23 93 ]
+	Comunidade 1: [ 73 110 114 67 46 53 49 83 88 ]
+	Comunidade 2: [ 2 100 13 47 15 60 106 32 39 ]
+	Comunidade 3: [ 7 77 82 ]
+	Comunidade 4: [ 3 5 81 84 97 98 10 ]
+	Comunidade 5: [ 1 33 37 103 105 45 109 89 25 ]
+	Comunidade 6: [ 57 92 44 66 80 91 112 48 86 ]
+	Comunidade 7: [ 35 101 55 19 79 94 29 30 ]
+	Comunidade 8: [ 113 20 62 95 70 75 76 56 59 ]
+	Comunidade 9: [ 65 27 17 96 87 63 ]
+	Comunidade 10: [ 64 6 ]
+	Comunidade 11: [ 34 18 99 71 54 61 31 ]
+	Comunidade 12: [ 108 68 8 78 111 21 22 51 ]
+	Comunidade 13: [ 14 26 85 12 38 43 ]
+	Comunidade 14: [ 72 74 102 40 52 107 ]
+	Comunidade 15: [ 90 11 28 69 50 24 ]
+	Comunidade 16: [ 58 36 ]
+	Comunidade 17: [ 42 ]
+

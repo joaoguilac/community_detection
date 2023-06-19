@@ -95,6 +95,5 @@ Graph Graph::compression() {
             D2.erase(D2.begin(), D2.begin()+1);
         }
     }
-    graph_compressed.printGraph();
     return graph_compressed;
 }

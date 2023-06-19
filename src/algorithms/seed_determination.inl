@@ -72,7 +72,7 @@ std::vector<Node*> Graph::seed_determination() {
         }
     }
     community_seeds.resize(slow);
-    for (int i{0}; i < community_seeds.size(); i++) {
+    for (size_t i{0}; i < community_seeds.size(); i++) {
         community_seeds[i]->setCommunity(i);
     }
 
