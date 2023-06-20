@@ -29,8 +29,8 @@ std::vector<Node*> Graph::seed_determination() {
 
     int nc = this->nodes.size();
     for(int i{0}; i < nc-2; ++i) {
-        double cur_dif = ((centralityIndexes[i].first - centralityIndexes[i+1].first) -
-                          (centralityIndexes[i+1].first - centralityIndexes[i+2].first));
+        double cur_dif = std::abs((centralityIndexes[i].first - centralityIndexes[i+1].first) -
+                                  (centralityIndexes[i+1].first - centralityIndexes[i+2].first));
         secondDiference.push_back(cur_dif);
     }
 

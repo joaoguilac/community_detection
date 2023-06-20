@@ -50,3 +50,16 @@
 	Comunidade 2: [ 3 7 6 ]
 	Comunidade 3: [ 9 14 12 ]
 
+=================================================
+>> Tempo para encontrar as comunidades: 0.887209ms
+
+>> Número de vértices: 16
+>> Número de arestas: 28
+>> Número de comunidades detectadas: 4
+
+>> Comunidades detectadas:
+	Comunidade 0: [ 10 11 8 15 13 ]
+	Comunidade 1: [ 0 2 4 5 1 ]
+	Comunidade 2: [ 3 7 6 ]
+	Comunidade 3: [ 9 14 12 ]
+
